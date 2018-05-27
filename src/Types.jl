@@ -355,6 +355,7 @@ struct CommandError <: Exception
     msg::String
 end
 cmderror(msg::String...) = throw(CommandError(join(msg)))
+show(io::IO, err::CommandError) = println(io, err.msg)
 
 
 ###############
