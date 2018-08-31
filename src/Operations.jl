@@ -473,7 +473,19 @@ function install_archive(
             @assert length(dirs) == 1
             !isdir(version_path) && mkpath(version_path)
             mv(joinpath(dir, dirs[1]), version_path; force=true)
+            if isdir(path)
+                @show readdir(path)
+            else
+                println("path not a dir")
+            end
             Base.rm(path; force = true)
+            if isdir(dir)
+                @show readdir(dir)
+            else
+                println("dir not a dir")
+            end
+            Base.rm(dir)
+            error("WOWHOO")
             return true
         end
     end

@@ -593,6 +593,14 @@ function handle_repos_develop!(ctx::Context, pkgs::AbstractVector{PackageSpec}; 
                 # Save the path as relative if it is a --local dev,
                 # otherwise put in the absolute path.
                 pkg.path = shared ? dev_pkg_path : relative_project_path(ctx, dev_pkg_path)
+                # Clean up temporary folder
+                if isdir(project_path)
+                    @show readdir(project_path)
+                else
+                    println("project_path is not a dir")
+                end
+                Base.rm(project_path; force = true, recursive = true)
+                error("WOWHOO")
             end
             @assert pkg.path != nothing
             @assert has_uuid(pkg)
